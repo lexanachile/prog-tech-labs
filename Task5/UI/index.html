@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Изучение спроса на заданный товар</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1>АИС «Изучение спроса на заданный товар»</h1>
+    <nav aria-label="Главное меню">
+      <a href="#home">Главная</a>
+      <a href="#products">Каталог</a>
+      <a href="#search">Поиск и отчёты</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" class="screen" aria-label="Главная"></section>
+
+    <section id="products" class="screen">
+      <h2>Каталог товаров</h2>
+      <p><a href="#add-product">Добавить товар</a></p>
+
+      <form id="catalog-filter" action="#products" method="get">
+        <label>Наименование товара
+          <input type="search" name="product">
+        </label>
+        <label>Категория
+          <input type="text" name="category">
+        </label>
+        <button type="submit">Фильтровать</button>
+      </form>
+
+      <form action="#products" method="get">
+        <label>Порядок сортировки
+          <select name="sort">
+            <option value="price-asc">Сначала дешевле</option>
+            <option value="price-desc">Сначала дороже</option>
+          </select>
+        </label>
+        <button type="submit">Сортировать</button>
+      </form>
+
+      <h3 id="catalog-category">Пельмени</h3>
+      <ul id="catalog-list">
+        <li data-product="home"><span>«Бабушка Аня» Домашние, 1 кг</span> («Санта Бремор»)</li>
+        <li data-product="classic"><span>«Мясные подушечки» Классические, 430 г</span> (Брестский мясокомбинат)</li>
+        <li data-product="poteshki"><span>«Мясные подушечки» Потешные («Потешки»), 430 г</span> (Брестский мясокомбинат)</li>
+      </ul>
+      <p id="catalog-empty" role="status" hidden>Товары не найдены.</p>
+      <p><a href="#price-history-result">Смотреть историю цен</a></p>
+      <p><a href="#product">Посмотреть макет карточки товара</a></p>
+      <nav aria-label="Страницы каталога">
+        <button type="button" disabled>Назад</button>
+        <span>Страница 1</span>
+        <button type="button" disabled>Далее</button>
+      </nav>
+    </section>
+
+    <section id="product" class="screen">
+      <h2>Карточка товара</h2>
+      <dl>
+        <dt>Артикул</dt><dd>—</dd>
+        <dt>Наименование товара</dt><dd>—</dd>
+        <dt>Категория</dt><dd>—</dd>
+        <dt>Предприятие</dt><dd>—</dd>
+        <dt>Реквизиты предприятия</dt><dd>—</dd>
+        <dt>Номер прайс-листа</dt><dd>—</dd>
+        <dt>Дата выпуска прайс-листа</dt><dd>—</dd>
+        <dt>Цена за единицу</dt><dd>—</dd>
+        <dt>Количество</dt><dd>—</dd>
+      </dl>
+      <p><a href="#edit-product">Редактировать</a> <a href="#delete-product">Удалить</a></p>
+      <p><a href="#products">В каталог</a></p>
+    </section>
+
+    <section id="add-product" class="screen">
+      <h2>Добавление товара</h2>
+      <form action="#products" method="get">
+        <label>Артикул <input type="text" name="article" required></label>
+        <label>Наименование товара <input type="text" name="product" required></label>
+        <label>Категория <input type="text" name="category" required></label>
+        <label>Предприятие <input type="text" name="company" required></label>
+        <label>Реквизиты предприятия <input type="text" name="company-details" required></label>
+        <label>Номер прайс-листа <input type="text" name="price-list" required></label>
+        <label>Дата выпуска прайс-листа <input type="date" name="price-list-date" required></label>
+        <label>Цена за единицу <input type="number" name="price" min="0" step="0.01" required></label>
+        <label>Количество <input type="number" name="quantity" min="0" step="1" required></label>
+        <button type="submit">Добавить</button>
+        <a href="#products">Отмена</a>
+      </form>
+    </section>
+
+    <section id="edit-product" class="screen">
+      <h2>Редактирование товара</h2>
+      <form action="#product" method="get">
+        <label>Артикул <input type="text" name="article" required></label>
+        <label>Наименование товара <input type="text" name="product" required></label>
+        <label>Категория <input type="text" name="category" required></label>
+        <label>Предприятие <input type="text" name="company" required></label>
+        <label>Реквизиты предприятия <input type="text" name="company-details" required></label>
+        <label>Номер прайс-листа <input type="text" name="price-list" required></label>
+        <label>Дата выпуска прайс-листа <input type="date" name="price-list-date" required></label>
+        <label>Цена за единицу <input type="number" name="price" min="0" step="0.01" required></label>
+        <label>Количество <input type="number" name="quantity" min="0" step="1" required></label>
+        <button type="submit">Сохранить</button>
+        <a href="#product">Отмена</a>
+      </form>
+    </section>
+
+    <section id="delete-product" class="screen">
+      <h2>Удаление товара</h2>
+      <form action="#products" method="get">
+        <p>Удалить выбранный товар из каталога?</p>
+        <button type="submit">Удалить</button>
+        <a href="#product">Отмена</a>
+      </form>
+    </section>
+
+    <section id="search" class="screen">
+      <h2>Поиск и отчёты</h2>
+      <ul>
+        <li><a href="#clients">Клиенты, заказавшие товар на заданную дату</a></li>
+        <li><a href="#category">Товары категории и цены на заданную дату</a></li>
+        <li><a href="#price-history">Динамика стоимости товара по декадам</a></li>
+      </ul>
+    </section>
+
+    <section id="clients" class="screen">
+      <h2>Клиенты, заказавшие товар</h2>
+      <form action="#clients-result" method="get">
+        <label>Наименование товара <input type="text" name="product" required></label>
+        <label>Дата заказа <input type="date" name="order-date" required></label>
+        <button type="submit">Найти клиентов</button>
+        <a href="#search">К списку запросов</a>
+      </form>
+    </section>
+
+    <section id="clients-result" class="screen">
+      <h2>Клиенты и заказанное количество</h2>
+      <table>
+        <thead>
+          <tr><th scope="col">Клиент</th><th scope="col">Количество</th></tr>
+        </thead>
+        <tbody>
+          <tr><td colspan="2">Нет данных.</td></tr>
+        </tbody>
+      </table>
+      <p><a href="#clients">Изменить параметры запроса</a></p>
+    </section>
+
+    <section id="category" class="screen">
+      <h2>Товары категории и цены на заданную дату</h2>
+      <form action="#category-result" method="get">
+        <label>Категория <input type="text" name="category" value="Пельмени" required></label>
+        <label>Дата цены <input type="date" name="price-date" value="2026-09-19" required></label>
+        <button type="submit">Показать пример результата</button>
+        <a href="#search">К списку запросов</a>
+      </form>
+    </section>
+
+    <section id="category-result" class="screen">
+      <h2>Цены на пельмени на 19.09.2026</h2>
+      <table>
+        <thead>
+          <tr><th scope="col">Товар</th><th scope="col">Цена за упаковку, BYN</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>«Бабушка Аня» Домашние, 1 кг</td><td>13,45</td></tr>
+          <tr><td>«Мясные подушечки» Классические, 430 г</td><td>4,65</td></tr>
+          <tr><td>«Мясные подушечки» Потешные («Потешки»), 430 г</td><td>5,92</td></tr>
+        </tbody>
+      </table>
+      <p><a href="#price-history-result">История цен</a></p>
+      <p><a href="#category">К форме запроса</a></p>
+    </section>
+
+    <section id="price-history" class="screen">
+      <h2>Динамика стоимости товара по декадам</h2>
+      <form id="history-filter" action="#price-history-result" method="get">
+        <label>Товар
+          <select name="product">
+            <option value="">Все товары</option>
+            <option value="home">«Бабушка Аня» Домашние</option>
+            <option value="classic">«Мясные подушечки» Классические</option>
+            <option value="poteshki">«Потешки»</option>
+          </select>
+        </label>
+        <label>Начальная дата <input type="date" name="start-date" min="2026-01-01" max="2026-12-31" value="2026-01-01" required></label>
+        <label>Конечная дата <input type="date" name="end-date" min="2026-01-01" max="2026-12-31" value="2026-12-31" required></label>
+        <button type="submit">Показать динамику</button>
+        <a href="#search">К списку запросов</a>
+      </form>
+    </section>
+
+    <section id="price-history-result" class="screen">
+      <h2>История цен на пельмени по декадам</h2>
+      <p id="history-period"></p>
+      <p><a href="#price-history">Изменить товар или период</a></p>
+      <table>
+        <thead>
+          <tr><th scope="col">Декада</th><th scope="col">Дата, товар и цена за упаковку</th></tr>
+        </thead>
+        <tbody id="history-rows"></tbody>
+      </table>
+    </section>
+
+    <section id="error" class="screen">
+      <h2>Ошибка</h2>
+      <p>Конечная дата раньше начальной. Исправьте период запроса.</p>
+      <p><a href="#price-history">Вернуться к параметрам периода</a></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Лабораторная работа № 5. Учебный прототип.</p>
+  </footer>
+</body>
+</html>
